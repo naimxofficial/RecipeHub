@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @import "@heroui/styles";
 
-
+/* Light theme */
 :root,
 [data-theme="light"] {
   --background: #faf6f0;
@@ -9,19 +9,20 @@
   --surface: #f1eae0;
   --surface-foreground: #2a2118;
  
-  --accent: #d14d2a; /* paprika */
+  --accent: #d14d2a;
   --accent-foreground: #fbf3ec;
  
-  --success: #3f6b4d; /* basil */
+  --success: #3f6b4d;
   --success-foreground: #f3f7f1;
  
-  --warning: #d89a2e; /* saffron */
+  --warning: #d89a2e;
   --warning-foreground: #2a2118;
  
   --muted: #8a7e6e;
   --separator: #e4ddd0;
 }
- 
+
+/* Dark theme */
 .dark,
 [data-theme="dark"] {
   --background: #16130f;
@@ -29,7 +30,7 @@
   --surface: #1f1b16;
   --surface-foreground: #f3ece2;
  
-  --accent: #e8693f; /* brighter paprika for dark contrast */
+  --accent: #e8693f;
   --accent-foreground: #1a1209;
  
   --success: #7cb48a;
@@ -41,7 +42,9 @@
   --muted: #9c8f7c;
   --separator: #322b24;
 }
- 
+
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 @theme inline {
   --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;

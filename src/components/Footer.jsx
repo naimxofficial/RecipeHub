@@ -34,7 +34,7 @@ export default function Footer() {
           <div className="sm:col-span-2 lg:col-span-2">
             <NextLink href="/" className="flex w-fit items-center gap-2.5">
               <span className="flex size-8 items-center justify-center rounded-full bg-accent text-accent-foreground">
-                <ChefHat className="size-[18px]" strokeWidth={2.25} />
+                <ChefHat className="size-4.5" strokeWidth={2.25} />
               </span>
               <span className="font-display text-lg font-bold tracking-tight">
                 <span className="text-surface-foreground">Recipe</span>

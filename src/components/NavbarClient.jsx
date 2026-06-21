@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import NextLink from "next/link";
 import {
@@ -30,14 +30,18 @@ const PUBLIC_LINKS = [
 ];
 
 export default function NavbarClient({ user }) {
- 
+
   const pathname = usePathname();
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+  const prevPathname = useRef(pathname);
 
- // Close the mobile panel on route change
+  // Close the mobile panel on route change
   useEffect(() => {
-    setIsOpen(false);
+    if (prevPathname.current !== pathname) {
+      setIsOpen(false);
+      prevPathname.current = pathname;
+    }
   }, [pathname]);
 
 
