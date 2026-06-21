@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { FaInstagram, FaFacebook, FaYoutube } from "react-icons/fa";
 import { BsTwitterX } from "react-icons/bs";
+import Link from "next/link";
 const QUICK_LINKS = [
   { label: "Home", href: "/" },
   { label: "Browse Recipes", href: "/recipes" },
@@ -47,7 +48,7 @@ export default function Footer() {
             </p>
             <div className="mt-5 flex items-center gap-2">
               {SOCIAL_LINKS.map(({ label, href, icon: Icon }) => (
-                <a
+                <Link
                   key={label}
                   href={href}
                   target="_blank"
@@ -56,7 +57,7 @@ export default function Footer() {
                   className="flex size-9 items-center justify-center rounded-full text-muted transition-colors hover:bg-background hover:text-accent"
                 >
                   <Icon className="size-4" />
-                </a>
+                </Link>
               ))}
             </div>
           </div>
@@ -88,22 +89,22 @@ export default function Footer() {
             </h3>
             <ul className="mt-4 flex flex-col gap-3 text-sm text-muted">
               <li>
-                <a
+                <Link
                   href="mailto:support@recipehub.com"
                   className="flex items-center gap-2.5 transition-colors hover:text-accent"
                 >
                   <Mail className="size-4 shrink-0" />
                   support@recipehub.com
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   href="tel:+15550142024"
                   className="flex items-center gap-2.5 transition-colors hover:text-accent"
                 >
                   <Phone className="size-4 shrink-0" />
                   +1 (555) 014-2024
-                </a>
+                </Link>
               </li>
               <li className="flex items-start gap-2.5">
                 <MapPin className="mt-0.5 size-4 shrink-0" />

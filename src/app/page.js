@@ -1,12 +1,50 @@
-import FeaturedRecipeCard from "@/components/Home/FeaturedRecipeCard";
 import Hero from "@/components/Home/Hero";
+import FeaturedRecipes from "@/components/Home/FeaturedRecipes";
+import PopularRecipes from "@/components/Home/PopularRecipes";
+import HowItWorks from "@/components/Home/HowItWorks";
+import BrowseByCategory from "@/components/Home/BrowseByCategory";
 
+async function getFeaturedRecipes() {
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/recipes/featured`, {
+            next: { revalidate: 300 },
+            cache: 'force-cache',
+        });
+        if (!res.ok) throw new Error();
+        const data = await res.json();
+        return Array.isArray(data) && data.length > 0 ? data : [];
+    } catch {
+        return [];
+    }
+}
 
-export default function Home() {
-  return (
-    <div>
-      <Hero />
-      <FeaturedRecipeCard />
-    </div>
-  );
+async function getPopularRecipes() {
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/recipes/popular`, {
+            next: { revalidate: 300 },
+            cache: 'force-cache',
+        });
+        if (!res.ok) throw new Error();
+        const data = await res.json();
+        return Array.isArray(data) && data.length > 0 ? data : [];
+    } catch {
+        return [];
+    }
+}
+
+export default async function Home() {
+    const [featuredRecipes, popularRecipes] = await Promise.all([
+        getFeaturedRecipes(),
+        getPopularRecipes()
+    ]);
+
+    return (
+        <div>
+            <Hero />
+            <FeaturedRecipes recipes={featuredRecipes} />
+            <PopularRecipes recipes={popularRecipes} />
+            <HowItWorks />
+            <BrowseByCategory />
+        </div>
+    );
 }

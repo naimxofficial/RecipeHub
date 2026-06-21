@@ -13,6 +13,8 @@ export default function FeaturedRecipeCard({ recipe }) {
           src={recipe.image}
           alt={recipe.name}
           className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+          width={400}
+          height={300}
         />
         <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-warning px-2.5 py-1 text-xs font-semibold text-warning-foreground">
           <FaStar className="size-3" />
