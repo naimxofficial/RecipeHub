@@ -1,2 +1,53 @@
 @import "tailwindcss";
 @import "@heroui/styles";
+
+
+:root,
+[data-theme="light"] {
+  --background: #faf6f0;
+  --foreground: #2a2118;
+  --surface: #f1eae0;
+  --surface-foreground: #2a2118;
+ 
+  --accent: #d14d2a; /* paprika */
+  --accent-foreground: #fbf3ec;
+ 
+  --success: #3f6b4d; /* basil */
+  --success-foreground: #f3f7f1;
+ 
+  --warning: #d89a2e; /* saffron */
+  --warning-foreground: #2a2118;
+ 
+  --muted: #8a7e6e;
+  --separator: #e4ddd0;
+}
+ 
+.dark,
+[data-theme="dark"] {
+  --background: #16130f;
+  --foreground: #f3ece2;
+  --surface: #1f1b16;
+  --surface-foreground: #f3ece2;
+ 
+  --accent: #e8693f; /* brighter paprika for dark contrast */
+  --accent-foreground: #1a1209;
+ 
+  --success: #7cb48a;
+  --success-foreground: #102015;
+ 
+  --warning: #f0b563;
+  --warning-foreground: #241a08;
+ 
+  --muted: #9c8f7c;
+  --separator: #322b24;
+}
+ 
+
+@theme inline {
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+}
+ 
+body {
+  font-family: var(--font-sans);
+}
