@@ -3,6 +3,10 @@ import FeaturedRecipes from "@/components/Home/FeaturedRecipes";
 import PopularRecipes from "@/components/Home/PopularRecipes";
 import HowItWorks from "@/components/Home/HowItWorks";
 import BrowseByCategory from "@/components/Home/BrowseByCategory";
+import CommunitySection from "@/components/Home/CommunitySection";
+import TestimonialsSection from "@/components/Home/TestimonialsSection";
+import BenefitsSection from "@/components/Home/BenefitsSection";
+// import EditorsChoice from "@/components/Home/EditorsChoice";
 
 async function getFeaturedRecipes() {
     try {
@@ -44,7 +48,10 @@ export default async function Home() {
             <FeaturedRecipes recipes={featuredRecipes} />
             <PopularRecipes recipes={popularRecipes} />
             <HowItWorks />
+            <BenefitsSection />
             <BrowseByCategory />
+            <TestimonialsSection />
+            <CommunitySection />
         </div>
     );
 }

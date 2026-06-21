@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-full flex flex-col">
         <NextThemeProvider>
-          <nav><Navbar /></nav>
+          <Navbar />
           <main>{children}<ToastContainer /></main>
           <footer><Footer /></footer>
         </NextThemeProvider>

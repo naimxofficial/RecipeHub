@@ -64,7 +64,7 @@ export default function NavbarClient({ user }) {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-separator bg-background/80 backdrop-blur-lg">
+    <header className="sticky top-0 z-50 w-full border-b border-separator/70 bg-background/90 backdrop-blur-xl shadow-sm">
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         {/* Logo */}
         <NextLink href="/" className="flex shrink-0 items-center gap-2.5">

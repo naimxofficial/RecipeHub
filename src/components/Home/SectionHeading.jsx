@@ -7,7 +7,7 @@ export default function SectionHeading({ eyebrow, title, description, align = "l
           {eyebrow}
         </span>
       )}
-      <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+      <h2 className="mt-3 font-display text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
         {title}
       </h2>
       {description && (
