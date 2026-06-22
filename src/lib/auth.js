@@ -16,4 +16,23 @@ export const auth = betterAuth({
     database: mongodbAdapter(db, {
         client
     }),
+
+    databaseHooks: {
+    user: {
+      create: {
+        after: async (user) => {
+          await db.collection("users").updateOne(
+            { id: user.id },
+            {
+              $set: {
+                role: "user",
+                isBlocked: false,
+                isPremium: false,
+              },
+            }
+          );
+        },
+      },
+    },
+  },
 });

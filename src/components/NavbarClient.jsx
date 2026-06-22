@@ -106,7 +106,7 @@ export default function NavbarClient({ user }) {
                 className="flex items-center gap-1.5 rounded-full py-1 pl-1 pr-2.5 transition-colors hover:bg-surface"
               >
                 <Avatar className="size-8">
-                  <Avatar.Image src={user.image} alt={user.name ?? "User"} />
+                  <Avatar.Image src={user.image} referrerPolicy='no-referrer' alt={user.name ?? "User"} />
                   <Avatar.Fallback delayMs={300}>
                     {(user.name?.charAt(0) || "U").toUpperCase()}
                   </Avatar.Fallback>
@@ -152,7 +152,7 @@ export default function NavbarClient({ user }) {
               <Button
                 variant="primary"
                 size="sm"
-                render={(domProps) => <NextLink {...domProps} href="/register" />}
+                render={(domProps) => <NextLink {...domProps} href="/signup" />}
               >
                 Sign up
               </Button>
@@ -228,7 +228,7 @@ export default function NavbarClient({ user }) {
               <Button
                 variant="primary"
                 className="w-full"
-                render={(domProps) => <NextLink {...domProps} href="/register" />}
+                render={(domProps) => <NextLink {...domProps} href="/signup" />}
               >
                 Sign up
               </Button>
