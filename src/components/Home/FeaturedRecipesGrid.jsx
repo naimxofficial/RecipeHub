@@ -27,7 +27,7 @@ export default function FeaturedRecipesGrid({ recipes }) {
       className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4"
     >
       {recipes.map((recipe) => (
-        <motion.div key={recipe.id} variants={item}>
+        <motion.div key={recipe._id} variants={item}>
           <FeaturedRecipeCard recipe={recipe} />
         </motion.div>
       ))}

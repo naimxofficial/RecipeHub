@@ -4,12 +4,12 @@ import PopularRecipeCard from "./PopularRecipeCard";
 // Temporary placeholder data — swap once GET {NEXT_PUBLIC_URL}/recipes/popular
 // is live (recipes sorted by likesCount, descending).
 const MOCK_POPULAR_RECIPES = [
-  { id: "mock-5", name: "Triple Basil Pesto Gnocchi", authorName: "Mira Haldar", likesCount: 482, image: "https://picsum.photos/seed/popular-1/200/200" },
-  { id: "mock-6", name: "Crispy Turmeric Cauliflower", authorName: "Omar Reyes", likesCount: 397, image: "https://picsum.photos/seed/popular-2/200/200" },
-  { id: "mock-7", name: "Slow Roasted Paprika Pork", authorName: "Lena Wolfe", likesCount: 356, image: "https://picsum.photos/seed/popular-3/200/200" },
-  { id: "mock-8", name: "Saffron Lemon Risotto", authorName: "Priya Nair", likesCount: 318, image: "https://picsum.photos/seed/popular-4/200/200" },
-  { id: "mock-9", name: "Charcoal Grilled Veg Skewers", authorName: "Theo Marsh", likesCount: 271, image: "https://picsum.photos/seed/popular-5/200/200" },
-  { id: "mock-10", name: "Brown Sugar Banana Bread", authorName: "Aiko Tanaka", likesCount: 249, image: "https://picsum.photos/seed/popular-6/200/200" },
+  { _id: "mock-5", recipeName: "Triple Basil Pesto Gnocchi", authorName: "Mira Haldar", likesCount: 482, recipeImage: "https://picsum.photos/seed/popular-1/200/200" },
+  { _id: "mock-6", recipeName: "Crispy Turmeric Cauliflower", authorName: "Omar Reyes", likesCount: 397, recipeImage: "https://picsum.photos/seed/popular-2/200/200" },
+  { _id: "mock-7", recipeName: "Slow Roasted Paprika Pork", authorName: "Lena Wolfe", likesCount: 356, recipeImage: "https://picsum.photos/seed/popular-3/200/200" },
+  { _id: "mock-8", recipeName: "Saffron Lemon Risotto", authorName: "Priya Nair", likesCount: 318, recipeImage: "https://picsum.photos/seed/popular-4/200/200" },
+  { _id: "mock-9", recipeName: "Charcoal Grilled Veg Skewers", authorName: "Theo Marsh", likesCount: 271, recipeImage: "https://picsum.photos/seed/popular-5/200/200" },
+  { _id: "mock-10", recipeName: "Brown Sugar Banana Bread", authorName: "Aiko Tanaka", likesCount: 249, recipeImage: "https://picsum.photos/seed/popular-6/200/200" },
 ];
 
 // async function getPopularRecipes() {
@@ -39,7 +39,7 @@ export default async function PopularRecipes({recipes = []}) {
         />
         <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {displayRecipes.map((recipe, index) => (
-            <PopularRecipeCard key={recipe.id} recipe={recipe} rank={index + 1} />
+            <PopularRecipeCard key={recipe._id} recipe={recipe} rank={index + 1} />
           ))}
         </div>
       </div>

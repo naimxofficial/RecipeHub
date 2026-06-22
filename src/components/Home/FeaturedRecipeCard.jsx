@@ -5,13 +5,13 @@ import { FaClock, FaStar } from "react-icons/fa6";
 export default function FeaturedRecipeCard({ recipe }) {
   return (
     <NextLink
-      href={`/recipes/${recipe.id}`}
+      href={`/recipes/${recipe._id}`}
       className="group flex flex-col overflow-hidden rounded-2xl border border-separator bg-surface transition-shadow hover:shadow-lg hover:shadow-accent/5"
     >
       <div className="relative aspect-4/3 overflow-hidden">
         <Image
-          src={recipe.image}
-          alt={recipe.name}
+          src={recipe.recipeImage}
+          alt={recipe.recipeName}
           className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
           width={400}
           height={300}
@@ -23,7 +23,7 @@ export default function FeaturedRecipeCard({ recipe }) {
       </div>
       <div className="flex flex-1 flex-col gap-2 p-4">
         <h3 className="font-display text-base font-semibold text-surface-foreground">
-          {recipe.name}
+          {recipe.recipeName}
         </h3>
         <div className="flex flex-wrap items-center gap-2 text-xs text-muted">
           <span className="rounded-full bg-background px-2.5 py-1">{recipe.category}</span>

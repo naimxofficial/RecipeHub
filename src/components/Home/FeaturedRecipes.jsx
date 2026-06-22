@@ -6,36 +6,36 @@ import FeaturedRecipesGrid from "./FeaturedRecipesGrid";
 // recipes where isFeatured === true.
 const MOCK_FEATURED_RECIPES = [
   {
-    id: "mock-1",
-    name: "Brown Butter Garlic Pasta",
+    _id: "mock-1",
+    recipeName: "Brown Butter Garlic Pasta",
     category: "Dinner",
     cuisine: "Italian",
     prepTime: "25 mins",
-    image: "https://picsum.photos/seed/featured-1/600/450",
+    recipeImage: "https://picsum.photos/seed/featured-1/600/450",
   },
   {
-    id: "mock-2",
-    name: "Smoky Paprika Roast Chicken",
+    _id: "mock-2",
+    recipeName: "Smoky Paprika Roast Chicken",
     category: "Dinner",
     cuisine: "Spanish",
     prepTime: "55 mins",
-    image: "https://picsum.photos/seed/featured-2/600/450",
+    recipeImage: "https://picsum.photos/seed/featured-2/600/450",
   },
   {
-    id: "mock-3",
-    name: "Saffron Coconut Rice",
+    _id: "mock-3",
+    recipeName: "Saffron Coconut Rice",
     category: "Side Dish",
     cuisine: "South Asian",
     prepTime: "30 mins",
-    image: "https://picsum.photos/seed/featured-3/600/450",
+    recipeImage: "https://picsum.photos/seed/featured-3/600/450",
   },
   {
-    id: "mock-4",
-    name: "Charred Lemon Basil Salad",
+    _id: "mock-4",
+    recipeName: "Charred Lemon Basil Salad",
     category: "Salad",
     cuisine: "Mediterranean",
     prepTime: "15 mins",
-    image: "https://picsum.photos/seed/featured-4/600/450",
+    recipeImage: "https://picsum.photos/seed/featured-4/600/450",
   },
 ];
 
@@ -65,7 +65,7 @@ export default async function FeaturedRecipes({ recipes = []}) {
           description="A rotating shelf of dishes our admins think you should try this week."
         />
         <div className="mt-10">
-          <FeaturedRecipesGrid recipes={displayRecipes} />
+          <FeaturedRecipesGrid key={displayRecipes._id} recipes={displayRecipes} />
         </div>
       </div>
     </section>

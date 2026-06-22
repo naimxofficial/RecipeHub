@@ -11,7 +11,7 @@ import BenefitsSection from "@/components/Home/BenefitsSection";
 async function getFeaturedRecipes() {
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/recipes/featured`, {
-            next: { revalidate: 300 },
+            next: { revalidate: 600 },
             cache: 'force-cache',
         });
         if (!res.ok) throw new Error();
@@ -25,7 +25,7 @@ async function getFeaturedRecipes() {
 async function getPopularRecipes() {
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/recipes/popular`, {
-            next: { revalidate: 300 },
+            next: { revalidate: 600 },
             cache: 'force-cache',
         });
         if (!res.ok) throw new Error();
