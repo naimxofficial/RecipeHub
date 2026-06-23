@@ -1,8 +1,13 @@
 import { NextResponse } from "next/server";
-import { getSessionCookie } from "better-auth/cookies";
+import { headers } from "next/headers";
+import { auth } from "@/lib/auth";
 
-export async function middleware(request) {
-  const session = getSessionCookie(request);
+export async function proxy(request) {
+  
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
   const { pathname } = request.nextUrl;
 
   if (!session) {
