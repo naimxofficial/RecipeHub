@@ -1,35 +1,7 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
-import { MongoClient } from "mongodb";
 import DashboardSidebar from "@/components/dashboard/DashboardSidebar";
-
-async function getFullUser(sessionUser) {
-  if (!sessionUser) return null;
-  try {
-    const client = new MongoClient(process.env.MONGODB_URI);
-    await client.connect();
-    const db = client.db("recipehub");
-    const user = await db
-      .collection("user")
-      .findOne(
-        { id: sessionUser.id },
-        { projection: { role: 1, isPremium: 1, isBlocked: 1, name: 1, email: 1, image: 1 } }
-      );
-    await client.close();
-    return user
-      ? {
-          ...sessionUser,
-          role: user.role ?? "user",
-          isPremium: user.isPremium ?? false,
-          isBlocked: user.isBlocked ?? false,
-        }
-      : sessionUser;
-  } catch {
-    // Fall back to session data if DB call fails
-    return sessionUser;
-  }
-}
 
 export default async function DashboardLayout({ children }) {
   const session = await auth.api.getSession({ headers: await headers() });
@@ -38,9 +10,9 @@ export default async function DashboardLayout({ children }) {
     redirect("/login?callbackUrl=/dashboard");
   }
 
-  const user = await getFullUser(session.user);
+  const user = session.user;
 
-  if (user?.isBlocked) {
+  if (user.isBlocked) {
     redirect("/blocked");
   }
 
