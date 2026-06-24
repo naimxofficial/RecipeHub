@@ -19,7 +19,7 @@ export default async function MyRecipesPage() {
             <span className="size-1.5 rounded-full bg-accent" />
             MY RECIPES
           </span>
-          <h1 className="mt-1 font-display text-3xl font-bold text-foreground">
+          <h1 className="mt-1 font-display text-2xl font-bold text-foreground">
             My Recipes
           </h1>
         </div>
