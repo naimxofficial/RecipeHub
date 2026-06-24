@@ -111,6 +111,7 @@ export default function ProfileClient({ userId, initialUser }) {
             <div className="size-32 rounded-2xl overflow-hidden border-4 border-background shadow-md">
               {formData.image ? (
                 <Image
+                  loading="eager"
                   src={formData.image}
                   alt={user.name}
                   width={128}

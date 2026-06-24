@@ -1,8 +1,10 @@
 import { betterAuth } from "better-auth";
 import { MongoClient } from "mongodb";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
+
 const client = new MongoClient(process.env.MONGODB_URI);
 const db = client.db('recipehub');
+
 export const auth = betterAuth({
     emailAndPassword: {
         enabled: true,
@@ -17,22 +19,23 @@ export const auth = betterAuth({
         client
     }),
 
-    databaseHooks: {
     user: {
-      create: {
-        after: async (user) => {
-          await db.collection("users").updateOne(
-            { id: user.id },
-            {
-              $set: {
-                role: "user",
-                isBlocked: false,
-                isPremium: false,
-              },
-            }
-          );
+        additionalFields: {
+            role: {
+                type: "string",
+                defaultValue: "user",
+                input: false,
+            },
+            isBlocked: {
+                type: "boolean",
+                defaultValue: false,
+                input: false,
+            },
+            isPremium: {
+                type: "boolean",
+                defaultValue: false,
+                input: false,
+            },
         },
-      },
     },
-  },
 });

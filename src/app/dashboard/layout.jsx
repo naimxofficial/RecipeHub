@@ -11,7 +11,7 @@ async function getFullUser(sessionUser) {
     await client.connect();
     const db = client.db("recipehub");
     const user = await db
-      .collection("users")
+      .collection("user")
       .findOne(
         { id: sessionUser.id },
         { projection: { role: 1, isPremium: 1, isBlocked: 1, name: 1, email: 1, image: 1 } }
