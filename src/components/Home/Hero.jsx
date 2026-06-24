@@ -68,15 +68,13 @@ export default function Hero() {
           variants={fadeUp}
           className="mt-9 flex flex-col items-center gap-3"
         >
-          <Button
-            variant="primary"
-            size="lg"
-            render={(domProps) => <NextLink {...domProps} href="/recipes" />}
-            className="group"
-          >
-            Browse Recipes
-            <FaArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-          </Button>
+          <NextLink 
+      href="/recipes" 
+      className="button button--primary button--lg group flex items-center gap-2"
+    >
+      Browse Recipes
+      <FaArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+    </NextLink>
           <NextLink
             href="/dashboard/add-recipe"
             className="text-sm font-medium text-muted underline-offset-4 transition-colors hover:text-accent hover:underline"
