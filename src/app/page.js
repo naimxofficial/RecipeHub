@@ -6,12 +6,11 @@ import BrowseByCategory from "@/components/Home/BrowseByCategory";
 import CommunitySection from "@/components/Home/CommunitySection";
 import TestimonialsSection from "@/components/Home/TestimonialsSection";
 import BenefitsSection from "@/components/Home/BenefitsSection";
-// import EditorsChoice from "@/components/Home/EditorsChoice";
 
 async function getFeaturedRecipes() {
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/recipes/featured`, {
-            next: { revalidate: 600 },
+            next: { revalidate: 30 },
             cache: 'force-cache',
         });
         if (!res.ok) throw new Error();
@@ -25,7 +24,7 @@ async function getFeaturedRecipes() {
 async function getPopularRecipes() {
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/recipes/popular`, {
-            next: { revalidate: 600 },
+            next: { revalidate: 30 },
             cache: 'force-cache',
         });
         if (!res.ok) throw new Error();
