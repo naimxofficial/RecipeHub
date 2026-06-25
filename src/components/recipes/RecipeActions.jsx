@@ -10,7 +10,6 @@ import {
   FaRegBookmark,
   FaFlag,
   FaCartShopping,
-  FaCrown,
 } from "react-icons/fa6";
 import { toast } from "react-toastify";
 import ReportModal from "./ReportModal";
@@ -21,6 +20,7 @@ export default function RecipeActions({
   initialLiked,
   initialFavorited,
   initialLikesCount,
+  purchased,           // New prop from parent
 }) {
   const router = useRouter();
   const [liked, setLiked] = useState(initialLiked);
@@ -28,6 +28,7 @@ export default function RecipeActions({
   const [likesCount, setLikesCount] = useState(initialLikesCount);
   const [likeLoading, setLikeLoading] = useState(false);
   const [favLoading, setFavLoading] = useState(false);
+  const [purchaseLoading, setPurchaseLoading] = useState(false);
   const [showReport, setShowReport] = useState(false);
 
   const requireAuth = () => {
@@ -35,7 +36,7 @@ export default function RecipeActions({
     router.push(`/login?callbackUrl=/recipes/${recipe._id}`);
   };
 
-  // Like / unlike toggle
+  // Like Toggle
   const handleLike = async () => {
     if (!user) return requireAuth();
     setLikeLoading(true);
@@ -50,6 +51,7 @@ export default function RecipeActions({
       );
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
+
       setLiked(data.liked);
       setLikesCount(data.likesCount);
     } catch {
@@ -59,7 +61,7 @@ export default function RecipeActions({
     }
   };
 
-  // Favorite / unfavorite toggle
+  // Favorite Toggle
   const handleFavorite = async () => {
     if (!user) return requireAuth();
     setFavLoading(true);
@@ -74,10 +76,9 @@ export default function RecipeActions({
       );
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
+
       setFavorited(data.favorited);
-      toast.success(
-        data.favorited ? "Added to favorites!" : "Removed from favorites."
-      );
+      toast.success(data.favorited ? "Added to favorites!" : "Removed from favorites.");
     } catch {
       toast.error("Couldn't update favorites. Please try again.");
     } finally {
@@ -85,106 +86,118 @@ export default function RecipeActions({
     }
   };
 
-  // Purchase / tip (Stripe — wired up in Phase 5)
+  // Purchase Recipe (Stripe Checkout)
   const handlePurchase = async () => {
     if (!user) return requireAuth();
+    if (purchased) {
+      toast.info("You already own this recipe.");
+      return;
+    }
+
+    setPurchaseLoading(true);
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_URL}/payments/create-checkout`,
+        `${process.env.NEXT_PUBLIC_URL}/payments/create-recipe-checkout`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            recipeId: recipe._id,
-            recipeName: recipe.recipeName,
-            price: recipe.price,
             userId: user.id,
             userEmail: user.email,
+            recipeId: recipe._id,
           }),
         }
       );
+
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error);
+
+      if (!res.ok) {
+        toast.error(data.error || "Failed to start checkout.");
+        return;
+      }
+
       // Redirect to Stripe Checkout
       window.location.href = data.url;
-    } catch {
-      toast.error("Couldn't start checkout. Please try again.");
+    } catch (err) {
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setPurchaseLoading(false);
     }
   };
 
   return (
     <>
-      {/* Action bar */}
       <div className="flex flex-wrap items-center gap-3">
-        {/* Like */}
+        {/* Like Button */}
         <button
           type="button"
           onClick={handleLike}
           disabled={likeLoading}
-          aria-label={liked ? "Unlike recipe" : "Like recipe"}
           className={`flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors disabled:opacity-60 ${
             liked
               ? "border-accent bg-accent/10 text-accent"
               : "border-separator bg-surface text-surface-foreground hover:border-accent/50 hover:text-accent"
           }`}
         >
-          {liked ? (
-            <FaHeart className="size-4 text-accent" />
-          ) : (
-            <FaRegHeart className="size-4" />
-          )}
+          {liked ? <FaHeart className="size-4 text-accent" /> : <FaRegHeart className="size-4" />}
           <span>{likesCount}</span>
-          <span className="hidden sm:inline">{liked ? "Liked" : "Like"}</span>
         </button>
 
-        {/* Favorite */}
+        {/* Favorite Button */}
         <button
           type="button"
           onClick={handleFavorite}
           disabled={favLoading}
-          aria-label={favorited ? "Remove from favorites" : "Add to favorites"}
           className={`flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors disabled:opacity-60 ${
             favorited
               ? "border-warning bg-warning/10 text-warning"
               : "border-separator bg-surface text-surface-foreground hover:border-warning/50 hover:text-warning"
           }`}
         >
-          {favorited ? (
-            <FaBookmark className="size-4 text-warning" />
-          ) : (
-            <FaRegBookmark className="size-4" />
-          )}
-          <span className="hidden sm:inline">
-            {favorited ? "Saved" : "Save"}
-          </span>
+          {favorited ? <FaBookmark className="size-4 text-warning" /> : <FaRegBookmark className="size-4" />}
         </button>
 
-        {/* Report */}
+        {/* Report Button */}
         <button
           type="button"
           onClick={() => {
             if (!user) return requireAuth();
             setShowReport(true);
           }}
-          aria-label="Report recipe"
           className="flex items-center gap-2 rounded-full border border-separator bg-surface px-4 py-2 text-sm font-medium text-muted transition-colors hover:border-danger/50 hover:text-danger"
         >
           <FaFlag className="size-4" />
           <span className="hidden sm:inline">Report</span>
         </button>
 
-        {/* Purchase / tip */}
-        <Button
-          variant="primary"
-          onPress={handlePurchase}
-          className="ml-auto flex items-center gap-2"
-        >
-          <FaCartShopping className="size-4" />
-          Support · ${recipe.price?.toFixed(2) ?? "—"}
-        </Button>
+        {/* Purchase Button */}
+        {!purchased && recipe.price > 0 && (
+          <Button
+            variant="primary"
+            onPress={handlePurchase}
+            isDisabled={purchaseLoading}
+            className="ml-auto flex items-center gap-2 bg-linear-to-r from-accent to-orange-600 hover:brightness-105"
+          >
+            {purchaseLoading ? (
+              "Processing..."
+            ) : (
+              <>
+                <FaCartShopping className="size-4" />
+                Buy Recipe — ${recipe.price?.toFixed(2) ?? "0.00"}
+              </>
+            )}
+          </Button>
+        )}
+
+        {/* Already Purchased Badge */}
+        {purchased && (
+          <div className="ml-auto flex items-center gap-2 rounded-full border border-success/30 bg-success/10 px-4 py-2 text-sm font-medium text-success">
+            <span>✓</span> Already Purchased
+          </div>
+        )}
       </div>
 
-      {/* Report modal */}
+      {/* Report Modal */}
       {showReport && user && (
         <ReportModal
           recipeId={recipe._id}

@@ -150,6 +150,7 @@ export default async function RecipeDetailsPage({ params }) {
                                 initialLiked={liked}
                                 initialFavorited={favorited}
                                 initialLikesCount={likesCount}
+                                purchased={recipe.purchased}
                             />
                         </div>
 
