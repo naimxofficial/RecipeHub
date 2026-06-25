@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import NextLink from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
@@ -22,7 +22,8 @@ import {
 } from "react-icons/fa6";
 import { authClient } from "@/lib/auth-client";
 
-export default function Login() {
+
+function LoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/";
@@ -223,5 +224,22 @@ export default function Login() {
         </div>
       </div>
     </main>
+  );
+}
+
+export default function Login() {
+  return (
+    <Suspense
+      fallback={
+        <main className="flex min-h-[calc(100vh-4rem)] items-center justify-center bg-background px-4 py-12">
+          <div className="flex flex-col items-center gap-3">
+            <div className="size-9 animate-spin rounded-full border-3 border-accent border-t-transparent" />
+            <p className="text-xs font-medium text-muted">Securing dynamic access portal...</p>
+          </div>
+        </main>
+      }
+    >
+      <LoginContent />
+    </Suspense>
   );
 }
