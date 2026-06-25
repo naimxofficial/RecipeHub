@@ -4,7 +4,7 @@
 
 RecipeHub is a full-stack recipe sharing platform where food enthusiasts can publish their own recipes, browse recipes shared by the community, save favorites, purchase premium recipes via Stripe, and unlock unlimited recipe uploads with a premium membership. Built with Next.js, Better Auth, and MongoDB.
 
-🌐 **Live Site:** [https://your-live-site-link.com](https://your-live-site-link.com)
+🌐 **Live Site:** [https://recipehub-lyart.vercel.app/](https://recipehub-lyart.vercel.app/)
 
 ---
 
